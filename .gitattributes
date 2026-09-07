@@ -1,0 +1,20 @@
+# Finales de línea — normalizados a LF.
+#
+# El índice de este repositorio ya estaba en LF; lo que estaba desparejo era la
+# copia de trabajo. Con `core.autocrlf=true` —el default de Git para Windows—
+# cada checkout convierte a CRLF, pero los archivos que escribe una herramienta
+# después del checkout quedan en LF, así que el working tree terminaba mezclando
+# las dos convenciones. El síntoma: un `diff` entre `app/schemas.py` de los tres
+# servicios de motor marcaba las 90 líneas como distintas aunque el contrato
+# fuera byte por byte el mismo.
+#
+# `eol=lf` fija la convención acá y deja de depender de la configuración local
+# de cada máquina.
+* text=auto eol=lf
+
+# Imágenes: son binarios y no se convierten nunca (el conjunto sintético del
+# benchmark vive en `bench/sample_dataset/`).
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.webp binary
