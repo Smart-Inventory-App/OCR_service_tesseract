@@ -34,6 +34,16 @@ class Transform(BaseModel):
     """
 
     rotate: int = Field(default=0, description="Giro en grados: 0, 90, 180 o 270")
+    crop_band: int = Field(
+        default=-1,
+        description=(
+            "Recorta a la banda de texto n-ésima antes de todo lo demás. -1 = sin "
+            "recorte. Existe para el sello de vencimiento, que es un renglón "
+            "diminuto dentro de una foto enorme: recortado y ampliado solo pasa a "
+            "ser legible. Cuál de las bandas es el sello lo decide el coordinador "
+            "probando; el motor sólo las ordena y recorta la que le piden."
+        ),
+    )
     grayscale: bool = True
     rescale: bool = True
     min_width: int = 1600
