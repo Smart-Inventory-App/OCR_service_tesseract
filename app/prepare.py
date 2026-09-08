@@ -186,7 +186,12 @@ def text_bands(image: np.ndarray) -> list[tuple[int, int, int, int]]:
     Existe para el sello de vencimiento. En una foto de envase el sello es un
     renglón diminuto dentro de un cuadro de 4000 px: ampliado junto con todo lo
     demás sigue midiendo unos pocos píxeles de alto, y ningún motor lo levanta.
-    Recortado y ampliado solo, pasa a ser texto grande y legible.
+    Recortado, el modelo recibe el renglón y no el envase entero: deja de competir
+    con la etiqueta impresa, con el fondo de la mesada y con la mano que sostiene
+    el producto. Lo que **no** se hace es ampliarlo — `bound_width` sólo achica,
+    y está medido: llevar la banda a más ancho con interpolación no agrega
+    información y el reconocimiento empeora (un lote que sale `LM85131262` a
+    891 px sale `LNSP131212` llevado a 1280).
 
     **No intenta adivinar cuál de las franjas es el sello.** Esa discriminación
     es poco confiable —la etiqueta impresa también es texto oscuro sobre claro, y
