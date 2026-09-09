@@ -180,7 +180,7 @@ Swagger en `http://localhost:8005/docs` (sólo con `DEBUG=true`).
 pytest
 ```
 
-**66 tests, 97 % de cobertura.** No requieren el binario de Tesseract: donde hace falta se mockea `pytesseract`. La cadena de OpenCV, en cambio, se ejercita de verdad —incluido el deskew sobre una imagen inclinada a propósito— porque es la parte cuyo comportamiento el coordinador da por sentado.
+**71 tests, 96 % de cobertura.** No requieren el binario de Tesseract: donde hace falta se mockea `pytesseract`. La cadena de OpenCV, en cambio, se ejercita de verdad —incluido el deskew sobre una imagen inclinada a propósito— porque es la parte cuyo comportamiento el coordinador da por sentado.
 
 | Archivo | Qué cubre |
 |---------|-----------|
