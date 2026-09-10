@@ -4,8 +4,6 @@ services:
     build: .
     container_name: tpp_ocr_tesseract
     ports:
-      # Publicado sólo para poder probar el motor aislado. En un despliegue real
-      # alcanza con que lo alcance `ocr_service` por la red interna.
       - "8005:8005"
     env_file:
       - .env

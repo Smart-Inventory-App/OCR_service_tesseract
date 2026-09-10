@@ -2,11 +2,11 @@ fastapi
 uvicorn[standard]
 pydantic-settings
 python-dotenv
-python-multipart               # recepción del binario en /engine/run
-opencv-python-headless         # preparación de la imagen (headless = sin GUI)
+python-multipart
+opencv-python-headless
 numpy
-pytesseract                    # binding del binario de Tesseract
-httpx                          # cliente de pruebas de FastAPI
+pytesseract
+httpx
 pytest
 pytest-asyncio
 pytest-cov

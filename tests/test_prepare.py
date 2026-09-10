@@ -196,3 +196,65 @@ def test_run_with_the_stamp_chain_returns_a_binary_image(color_image):
     )
 
     assert set(np.unique(prepare.run(color_image, spec))).issubset({0, 255})
+
+
+# ---------------------------------------------------------------------------
+# Recorte a una banda de texto
+# ---------------------------------------------------------------------------
+
+def _foto_con_renglon(ancho=1200, alto=900, y_texto=700):
+    """Fondo claro con un renglón oscuro fino, como el sello sobre un envase."""
+    import cv2
+    import numpy as np
+
+    imagen = np.full((alto, ancho, 3), 235, dtype=np.uint8)
+    # Un bloque de texto grande arriba y el "sello" fino abajo.
+    cv2.putText(imagen, "CONSERVAR EN LUGAR FRESCO", (120, 260),
+                cv2.FONT_HERSHEY_SIMPLEX, 1.6, (40, 40, 40), 4)
+    cv2.putText(imagen, "L6217 VTO 08/28", (150, y_texto),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.8, (55, 55, 55), 2)
+    return imagen
+
+
+def test_text_bands_finds_the_lines_and_ranks_them():
+    imagen = _foto_con_renglon()
+
+    bandas = prepare.text_bands(imagen)
+
+    assert len(bandas) >= 2, "tiene que encontrar los dos renglones"
+    # Todas son franjas: mucho más anchas que altas.
+    assert all(w / h >= 3 for _x, _y, w, h in bandas)
+
+
+def test_crop_to_band_returns_a_smaller_image():
+    imagen = _foto_con_renglon()
+
+    recorte = prepare.crop_to_band(imagen, 0)
+
+    assert recorte.shape[0] < imagen.shape[0]
+    assert recorte.size > 0
+
+
+def test_an_out_of_range_band_returns_the_whole_image():
+    """Un índice de más cuesta un intento repetido, nunca una lectura perdida."""
+    imagen = _foto_con_renglon()
+
+    recorte = prepare.crop_to_band(imagen, 99)
+
+    assert recorte.shape == imagen.shape
+
+
+def test_no_crop_when_the_transform_does_not_ask_for_it():
+    imagen = _foto_con_renglon()
+
+    assert prepare.crop_to_band(imagen, -1).shape == imagen.shape
+
+
+def test_the_crop_happens_inside_the_chain():
+    """`run` tiene que aplicar el recorte, no sólo aceptarlo en el contrato."""
+    imagen = _foto_con_renglon()
+
+    entera = prepare.run(imagen, Transform(rescale=False, deskew=False))
+    recortada = prepare.run(imagen, Transform(crop_band=0, rescale=False, deskew=False))
+
+    assert recortada.shape[0] < entera.shape[0]
