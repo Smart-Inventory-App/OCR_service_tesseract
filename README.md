@@ -77,7 +77,7 @@ El `transform` es lo que hace que este servicio no tenga criterio propio: el coo
   "languages": ["eng", "osd", "spa"], "supports_preprocessing": true }
 ```
 
-`supports_preprocessing: true` es un dato de coordinación: le dice a `ocr_service` que a este motor **sí** le sirve que le varíen los filtros, así que vale la pena gastarle reintentos. El servicio de EasyOCR declara lo contrario.
+`supports_preprocessing: true` es un dato de coordinación: le dice a `ocr_service` que a este motor **sí** le sirve que le varíen los filtros, así que vale la pena gastarle reintentos. El servicio de PaddleOCR declara lo contrario.
 
 ### `GET /engine/livez` · `GET /engine/readyz`
 

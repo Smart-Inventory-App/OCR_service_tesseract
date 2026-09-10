@@ -1,9 +1,9 @@
 """Contrato del servicio de motor.
 
-Es el mismo en `ocr_service_tesseract`, `ocr_service_easyocr` y
-`ocr_service_paddleocr`: el coordinador (`ocr_service`) habla con los tres a
-través de esta misma forma de petición y de respuesta, y por eso puede cambiar
-de motor sin cambiar una línea de su código.
+Es el mismo en `ocr_service_tesseract` y en `ocr_service_paddleocr`: el
+coordinador (`ocr_service`) habla con los dos a través de esta misma forma de
+petición y de respuesta, y por eso puede cambiar de motor —o agregar una réplica—
+sin cambiar una línea de su código.
 
 La petición describe **qué transformación mecánica** aplicar a la imagen antes de
 reconocerla. Quién decide esa transformación es siempre el coordinador; el motor
