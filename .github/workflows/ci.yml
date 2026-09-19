@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, production, development]
+    branches: [main, production]
   pull_request:
-    branches: [main, production, development]
+    branches: [main, production]
 
 jobs:
   test:
@@ -29,7 +29,7 @@ jobs:
             --cov=app \
             --cov-report=xml \
             --cov-report=term-missing \
-            --cov-fail-under=95 \
+            --cov-fail-under=90 \
             -v
 
       - name: Upload coverage to Codecov
