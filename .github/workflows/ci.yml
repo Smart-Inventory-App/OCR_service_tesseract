@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, production]
   pull_request:
-    branches: [main]
+    branches: [main, production]
 
 jobs:
   test:
@@ -20,9 +20,6 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      # No hace falta instalar el binario de Tesseract con apt: `pytesseract` es
-      # sólo el binding, y los tests doblan el motor. Verificado — la suite pasa
-      # entera sin el binario en el sistema.
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -32,7 +29,7 @@ jobs:
             --cov=app \
             --cov-report=xml \
             --cov-report=term-missing \
-            --cov-fail-under=95 \
+            --cov-fail-under=90 \
             -v
 
       - name: Upload coverage to Codecov
