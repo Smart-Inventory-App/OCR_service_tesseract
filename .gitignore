@@ -7,3 +7,6 @@ venv/
 .coverage
 coverage.xml
 htmlcov/
+
+# Testing Coverage
+.coverage.*

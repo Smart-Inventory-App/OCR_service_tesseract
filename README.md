@@ -1,4 +1,6 @@
-# Motor OCR — Tesseract
+# Motor OCR: Tesseract — Smart Inventory Platform
+
+[![codecov](https://codecov.io/gh/Smart-Inventory-App/OCR_service_tesseract/branch/main/graph/badge.svg?token=32nS3EwFke)](https://codecov.io/gh/Smart-Inventory-App/OCR_service_tesseract)
 
 Microservicio que hace **una sola cosa**: correr Tesseract sobre una imagen y devolver las palabras reconocidas con su caja y su confianza.
 
